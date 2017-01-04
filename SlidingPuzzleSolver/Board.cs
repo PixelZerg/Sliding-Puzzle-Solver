@@ -31,5 +31,34 @@ namespace SlidingPuzzleSolver
         {
             board = new int[order, order];
         }
+
+        public void MoveTile(Point p, Direction d)
+        {
+            int selected = board[p.X, p.Y];
+
+            Point tPoint = new Point(p.X, p.Y);
+
+            switch (d)
+            {
+                case Direction.Up:
+                    p.Y++;
+                    break;
+                case Direction.Down:
+                    p.Y--;
+                    break;
+                case Direction.Left:
+                    p.X--;
+                    break;
+                case Direction.Right:
+                    p.X++;
+                    break;
+            }
+
+            int target = board[tPoint.X, tPoint.Y];
+
+            //add check
+            board[p.X, p.Y] = target;
+            board[tPoint.X, tPoint.Y] = selected;
+        }
     }
 }
