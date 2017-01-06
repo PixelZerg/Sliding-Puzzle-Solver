@@ -1,1 +1,8 @@
 C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\bin\Debug\SlidingPuzzleSolver.exe.config
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\bin\Debug\SlidingPuzzleSolver.exe
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\bin\Debug\SlidingPuzzleSolver.pdb
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\obj\Debug\SlidingPuzzleSolver.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\obj\Debug\SlidingPuzzleSolver.Properties.Resources.resources
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\obj\Debug\SlidingPuzzleSolver.csproj.GenerateResource.Cache
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\obj\Debug\SlidingPuzzleSolver.exe
+C:\Users\user\Documents\Sliding-Puzzle-Solver\SlidingPuzzleSolver\obj\Debug\SlidingPuzzleSolver.pdb

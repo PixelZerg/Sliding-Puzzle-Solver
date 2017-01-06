@@ -16,7 +16,7 @@ namespace SlidingPuzzleSolver
 
     public class Board
     {
-        public int[,] board { get; private set;}
+        public int[,] board { get; set;}
 
         public Board() { }
 
@@ -32,7 +32,8 @@ namespace SlidingPuzzleSolver
             board = new int[order, order];
         }
 
-        public void MoveTile(Point p, Direction d)
+        /// <returns>MoveTile successful or not</returns>
+        public bool MoveTile(Point p, Direction d)
         {
             int selected = board[p.X, p.Y];
 
@@ -56,9 +57,33 @@ namespace SlidingPuzzleSolver
 
             int target = board[tPoint.X, tPoint.Y];
 
-            //add check
+            if (target != 0) return false;
+
             board[p.X, p.Y] = target;
             board[tPoint.X, tPoint.Y] = selected;
+
+            return true;
+        }
+
+        public int CountFitness(Point p)
+        {
+            int selected = this.board[p.X, p.Y];
+            if (selected == 0) return 0;
+            int ret = 0;
+            for (int x = p.X; x < this.board.GetLength(0); x++)
+            {
+                for (int y = p.Y; y < this.board.GetLength(1); y++)
+                {
+                    int i = this.board[x, y];
+
+                    if (i < selected)
+                    {
+                        if(i == 0) { i++; }
+                        ret += (i);
+                    }
+                }
+            }
+            return ret;
         }
     }
 }
