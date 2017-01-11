@@ -19,7 +19,7 @@ namespace SlidingPuzzleSolver
         /// <summary>
         /// Y,X
         /// </summary>
-        public int[,] board { get; set;}
+        public int[,] board { get; private set;}
 
         public Board() { }
 
@@ -35,12 +35,24 @@ namespace SlidingPuzzleSolver
             board = new int[order, order];
         }
 
+        public void Populate(int[,] map)
+        {
+            this.Initialise(map.GetLength(1));
+            for (int y = 0; y < board.GetLength(1); y++)
+            {
+                for (int x = 0; x < board.GetLength(0); x++)
+                {
+                    this.board[x, y] = map[y, x];
+                }
+            }
+        }
+
         /// <returns>MoveTile successful or not</returns>
         public bool MoveTile(Point p, Direction d)
         {
-            int selected = board[p.Y, p.X];
+            int selected = board[p.X, p.Y];
 
-            Point tPoint = new Point(p.Y, p.X);
+            Point tPoint = new Point(p.X, p.Y);
 
             switch (d)
             {
@@ -58,48 +70,53 @@ namespace SlidingPuzzleSolver
                     break;
             }
 
-            int target = board[tPoint.Y, tPoint.X];
+            try
+            {
+                int target = board[tPoint.X, tPoint.Y];
 
-            if (target != 0) return false;
-
-            board[p.Y, p.X] = target;
-            board[tPoint.Y, tPoint.X] = selected;
+                if (target != 0) return false;
+            
+            board[p.X, p.Y] = target;
+            board[tPoint.X, tPoint.Y] = selected;
+            }
+            catch
+            {
+                return false;
+            }
 
             return true;
         }
 
+        public int[] Flatten()
+        {
+            int[] ret = new int[this.board.GetLength(0) * this.board.GetLength(1)]; 
+            for (int y = 0; y < this.board.GetLength(1); y++)
+            {
+                for (int x = 0; x < this.board.GetLength(0); x++)
+                {
+                    ret[(y*this.board.GetLength(0))+x] = this.board[x, y];
+                }
+            }
+            return ret;
+        }
+
         public int CountFitness(Point p)
         {
-            int selected = this.board[p.Y, p.X];
+            int selflat = (p.Y * board.GetLength(0)) + p.X;
+            int[] flat = Flatten();
+            int selected = flat[selflat];
             Console.WriteLine(p + "SELETED: " + selected);
             if (selected == 0) return 0;
             int ret = 0;
-
-            int xn = p.X;
-            int yn = p.Y;
-            xn++;
-            if (xn == this.board.GetLength(0))
+            for (int i = 0; i < flat.Length; i++)
             {
-                xn = 0;
-                if (yn < this.board.GetLength(1))
+                Console.Write("\t" + flat[i]);
+                if (flat[i] < selected)
                 {
-                    yn++;
+                    Console.Write("!");
+                    ret += flat[i]+1;
                 }
-            }
-
-            for (int x = xn; x < this.board.GetLength(0); x++)
-            {
-                for (int y = yn; y < this.board.GetLength(1); y++)
-                {
-                    int i = this.board[y, x];
-                    Console.Write("\t"+i);
-                    Console.WriteLine(i < selected);
-                    if (i < selected)
-                    {
-                        if(i == 0) { i++; }
-                        ret += (i);
-                    }
-                }
+                Console.WriteLine();
             }
             return ret;
         }
@@ -107,13 +124,14 @@ namespace SlidingPuzzleSolver
         public int CountFitness()
         {
             int ret = 0;
-            for (int x = 0; x < this.board.GetLength(0); x++)
+            for (int y = 0; y < this.board.GetLength(1); y++)
             {
-                for (int y = 0; y < this.board.GetLength(1); y++)
+                for (int x = 0; x < this.board.GetLength(0); x++)
                 {
-                    ret+=CountFitness(new Point(y, x));
+                    ret += CountFitness(new Point(x, y));
                 }
             }
+
             return ret;
         }
     }
