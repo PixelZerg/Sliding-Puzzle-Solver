@@ -17,8 +17,8 @@ namespace SlidingPuzzleSolver
             */
 
             Board b = new Board(4);
-            b.Populate(new int[,] {{ 1, 0, 2 },
-                                  { 3, 4, 5 },
+            b.Populate(new int[,] {{ 3, 1, 2 },
+                                  { 0, 4, 5 },
                                   { 6, 7, 8 } });
             //b.board = new int[,] {{ 0, 1, 2, 3 },
             //                      { 4, 5, 6, 7 },

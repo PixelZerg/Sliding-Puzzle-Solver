@@ -108,7 +108,7 @@ namespace SlidingPuzzleSolver
             Console.WriteLine(p + "SELETED: " + selected);
             if (selected == 0) return 0;
             int ret = 0;
-            for (int i = 0; i < flat.Length; i++)
+            for (int i = selflat; i < flat.Length; i++)
             {
                 Console.Write("\t" + flat[i]);
                 if (flat[i] < selected)
