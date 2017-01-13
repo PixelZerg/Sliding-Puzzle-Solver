@@ -10,26 +10,10 @@ namespace SlidingPuzzleSolver
     {
         public static void Main()
         {
-            /*
-                0 1 2
-                3 4 5
-                6 7 8
-            */
-
-            Board b = new Board(4,true);
-            //b.Populate(new int[,] {{ 0, 1, 2 },
-            //                      { 3, 4, 5 },
-            //                      { 6, 7, 8 } });
-            //b.Populate(new int[,] {{ 0, 1, 2, 3 },
-            //                      { 4, 5, 6, 7 },
-            //                      { 8, 9, 10, 11 },
-            //                      { 12,13,14, 15 } });
-            //TODO make custom table class
+            Console.Write("Generating random board...");
+            Board b = Board.GetRandomBoard(5,1000,true);
+            Console.WriteLine("[OK!]"+Environment.NewLine);
             b.DisplayBoard();
-            b.MoveTile(Direction.Left);
-            b.DisplayBoard();
-
-
         }
     }
     

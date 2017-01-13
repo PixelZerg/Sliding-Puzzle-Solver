@@ -16,8 +16,10 @@ namespace SlidingPuzzleSolver
 
     public class Board
     {
+        public static Random random = new Random();
         public static bool DEBUG_MANIP = false;
         public static bool DEBUG_MOVE = true;
+        public static bool DEBUG_DISPLAY = true;
 
         /// <summary>
         /// Y,X
@@ -30,6 +32,33 @@ namespace SlidingPuzzleSolver
         public Board(int order, bool fill = false)
         {
             this.Initialise(order, fill);
+        }
+
+        /// <param name="order">Essentially "width"</param>
+        public static Board GetRandomBoard(int order, int mindist = 50, bool silent = false)
+        {
+            bool tdbgmv = DEBUG_MOVE;
+            bool tdbgmnp = DEBUG_MANIP;
+            if (silent)
+            {
+                DEBUG_MOVE = false;
+                DEBUG_MANIP = false;
+            }
+            Board b = new Board(order, true);
+            var vals = Enum.GetValues(typeof(Direction));
+            while(b.GetFitness()<mindist)
+            {
+                b.MoveTile((Direction)vals.GetValue(random.Next(vals.Length)));
+                if (DEBUG_DISPLAY&&!silent)
+                    b.DisplayBoard();
+            }
+
+            if (silent)
+            {
+                DEBUG_MANIP = tdbgmnp;
+                DEBUG_MOVE = tdbgmv;
+            }
+            return b;
         }
 
         /// <param name="order">Essentially "width"</param>
@@ -144,7 +173,7 @@ namespace SlidingPuzzleSolver
             return ret;
         }
 
-        public int CountFitness(Point p)
+        public int GetFitness(Point p)
         {
             int selflat = (p.Y * board.GetLength(0)) + p.X;
             int[] flat = Flatten();
@@ -176,7 +205,7 @@ namespace SlidingPuzzleSolver
             {
                 for (int x = 0; x < this.board.GetLength(0); x++)
                 {
-                    ret += CountFitness(new Point(x, y));
+                    ret += GetFitness(new Point(x, y));
                 }
             }
 
@@ -186,13 +215,14 @@ namespace SlidingPuzzleSolver
         public string Print()
         {
             StringBuilder sb = new StringBuilder();
+            int ml = this.board.GetLength(0).ToString().Length+2;
             for (int y = 0; y < this.board.GetLength(1); y++)
             {
                 for (int x = 0; x < this.board.GetLength(0); x++)
                 {
                     string s = this.board[x, y].ToString();
                     sb.Append(s);
-                    sb.Append(' ', 3 - s.Length);
+                    sb.Append(' ', ml - s.Length);
                     if (x < -this.board.GetLength(0) - 1)
                     {
                         sb.Append(',');
