@@ -16,16 +16,21 @@ namespace SlidingPuzzleSolver
                 6 7 8
             */
 
-            Board b = new Board(4);
-            b.Populate(new int[,] {{ 3, 1, 2 },
-                                  { 0, 4, 5 },
-                                  { 6, 7, 8 } });
-            //b.board = new int[,] {{ 0, 1, 2, 3 },
+            Board b = new Board(4,true);
+            //b.Populate(new int[,] {{ 0, 1, 2 },
+            //                      { 3, 4, 5 },
+            //                      { 6, 7, 8 } });
+            //b.Populate(new int[,] {{ 0, 1, 2, 3 },
             //                      { 4, 5, 6, 7 },
-            //                      { 8, 9, 10, 11 } };
+            //                      { 8, 9, 10, 11 },
+            //                      { 12,13,14, 15 } });
             //TODO make custom table class
-            Console.WriteLine(b.CountFitness());
-            //Console.WriteLine(b.board[2, 0]);
+            Console.WriteLine(b.GetFitness());
+            Console.WriteLine(b.Print());
+
+            Console.WriteLine(b.MoveTile(Direction.Left));
+            Console.WriteLine(b.Print());
+
 
         }
     }
