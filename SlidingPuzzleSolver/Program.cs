@@ -25,11 +25,9 @@ namespace SlidingPuzzleSolver
             //                      { 8, 9, 10, 11 },
             //                      { 12,13,14, 15 } });
             //TODO make custom table class
-            Console.WriteLine(b.GetFitness());
-            Console.WriteLine(b.Print());
-
-            Console.WriteLine(b.MoveTile(Direction.Left));
-            Console.WriteLine(b.Print());
+            b.DisplayBoard();
+            b.MoveTile(Direction.Left);
+            b.DisplayBoard();
 
 
         }

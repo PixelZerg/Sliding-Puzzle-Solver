@@ -17,6 +17,7 @@ namespace SlidingPuzzleSolver
     public class Board
     {
         public static bool DEBUG_MANIP = false;
+        public static bool DEBUG_MOVE = true;
 
         /// <summary>
         /// Y,X
@@ -119,6 +120,14 @@ namespace SlidingPuzzleSolver
                 return false;
             }
 
+            if (DEBUG_MOVE)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Moved: " + d);
+                Console.WriteLine();
+                Console.ResetColor();
+            }
+
             return true;
         }
 
@@ -150,6 +159,7 @@ namespace SlidingPuzzleSolver
                     Console.Write("\t" + flat[i]);
                 if (flat[i] < selected)
                 {
+                    if(DEBUG_MANIP)
                     Console.Write("!");
                     ret += flat[i]+1;
                 }
@@ -195,9 +205,11 @@ namespace SlidingPuzzleSolver
 
         public void DisplayBoard()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(this.Print());
-            Console.WriteLine();
             Console.WriteLine("Fitness: " + this.GetFitness());
+            Console.WriteLine();
+            Console.ResetColor();
         }
     }
 }
